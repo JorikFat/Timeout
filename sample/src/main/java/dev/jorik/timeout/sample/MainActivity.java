@@ -1,4 +1,4 @@
-package dev.jorik.timeout;
+package dev.jorik.timeout.sample;
 
 import androidx.appcompat.app.AppCompatActivity;
 
