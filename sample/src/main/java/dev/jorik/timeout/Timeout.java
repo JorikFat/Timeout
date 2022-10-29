@@ -1,5 +1,10 @@
 package dev.jorik.timeout;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
+import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -7,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 
-public class TimeoutActivity extends AppCompatActivity {
+public class Timeout {
 
     private static long timeout;
 
@@ -31,14 +36,21 @@ public class TimeoutActivity extends AppCompatActivity {
         timeout = createCalendar(year, month, day, hour, minute, second, millis).getTimeInMillis();
     }
 
-    public static boolean timeoutExpired(){
-        return System.currentTimeMillis() > timeout;
+    public static void checkTimeout(Application application){
+        if(System.currentTimeMillis() > timeout){
+            application.startActivity(
+                    new Intent(application, Timeout.Activity.class)
+                            .addFlags(FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_NEW_TASK)
+            );
+        }
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timeout);
+    public static class Activity extends AppCompatActivity{
+        @Override
+        protected void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_timeout);
+        }
     }
 
     private static Calendar createCalendar(int year, int month, int day, int hour, int minute, int second, int millis){

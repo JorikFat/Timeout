@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TimeoutActivity"
+        <activity android:name=".Timeout$Activity"
             android:exported="false"
             />
     </application>
