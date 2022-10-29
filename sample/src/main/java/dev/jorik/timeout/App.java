@@ -11,9 +11,12 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        startActivity(
-                new Intent(this, TimeoutActivity.class)
-                        .addFlags(FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_NEW_TASK)
-        );
+        TimeoutActivity.setTimeout(2022, 10, 29, 20, 20);
+        if(TimeoutActivity.timeoutExpired()){
+            startActivity(
+                    new Intent(this, TimeoutActivity.class)
+                            .addFlags(FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_NEW_TASK)
+            );
+        }
     }
 }
